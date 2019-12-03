@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-
 import { logout } from '../../actions/index';
-
-
 class UserMenu extends Component {
     constructor(props) {
         super(props);
@@ -29,13 +26,14 @@ class UserMenu extends Component {
         });
     }
 
-    render() {
-        const { logout } = this.props;
+  render() {
+    console.log(this.props);
+    const { userData, logout } = this.props;
         return (
             <div>
                 <Dropdown nav className="d-md-down-none" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                     <DropdownToggle nav>
-                        <span className="text-avatar bg-info">A</span>
+            <span className="text-avatar bg-info"> {userData.user.name[0]}</span>
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu-lg" right>
                         <DropdownItem onClick={this.toggleModel}><i className="fa fa-user"></i>Edit Profile</DropdownItem>
@@ -56,14 +54,13 @@ class UserMenu extends Component {
                     </Modal>
                 </div>
             </div>
-
         );
     }
 }
 
-function mapStateToProps({ user }) {
+function mapStateToProps({ userData }) {
     return {
-        user
+        userData
     };
 }
 

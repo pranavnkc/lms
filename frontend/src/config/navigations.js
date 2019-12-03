@@ -6,6 +6,11 @@ export default {
       icon: 'fa fa-tachometer'
     },
     {
+      name: 'Users',
+      url: '/dashboard',
+      icon: 'fa fa-tachometer'
+    },
+    {
       name: 'Some Menu Item',
       icon: 'fa fa-tasks',
       children: [

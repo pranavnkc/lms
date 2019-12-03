@@ -19,7 +19,7 @@ class Login extends Component {
                 <Card className="p-4">
                   <CardBody>
         <LoginForm onSubmit={login} />
-        <p class="text-danger">{this.props.error?this.props.error.auth:''}</p>
+        <p className="text-danger">{this.props.error?this.props.error.auth:''}</p>
                   </CardBody>
                 </Card>
                 <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: 44 + '%' }}>
@@ -49,7 +49,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   console.log(state);
   return {
-    error: state.user? state.user.error:null,
+    error: state.user? state.user.error:null
   };
 }
 

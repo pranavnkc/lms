@@ -3,6 +3,7 @@ import API from "../utils/API";
 import LocalStorageService from "../utils/LocalStorageService.js";
 export const USER_LOGGED_IN = "USER_LOGGED_IN";
 export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
+export const USER_ME = "USER_ME";
 const localStorageService = LocalStorageService.getService();
 
 export const someAction = (props) => {
@@ -30,7 +31,7 @@ export const login = (props) => {
 };
 
 export const logout = (props) => {
-    return (dispatch, getState) => {
+  return (dispatch, getState) => {
         dispatch({
             type: USER_LOGGED_OUT,
             payload: null
@@ -38,3 +39,25 @@ export const logout = (props) => {
         toastr.success('Success', 'You clicked login');
     };
 };
+
+
+
+export const me = (props) => {
+  console.log("asdasd");
+  return (dispatch, getState) => {
+    API.get('users/me/').then((response)=>{
+      dispatch({
+        type: USER_ME,
+        payload: response.data
+      });
+    }), (err)=>{
+      console.log(err);
+      if(err.response.status==401){
+        dispatch({
+            type: USER_LOGGED_OUT,
+            payload: null
+        });
+      }
+    };
+  };
+}
