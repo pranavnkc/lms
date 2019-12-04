@@ -17,16 +17,17 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all().order_by('name')
 
 class UserViewSet(viewsets.ModelViewSet):
-    primission_classes = (permissions.IsAuthenticated, )
+    #primission_classes = (permissions.IsAuthenticated, )
     serializer_class = serializer.UserSerializer
     #filter_class = UserFilter
     queryset = User.objects.all().order_by('-date_joined').prefetch_related('groups')
     pagination_class = StandardResultsSetPagination
+
     def get_queryset(self):
         qs = User.objects.all().order_by('-date_joined').prefetch_related('groups')
         return qs
    
-    @action(detail=False, url_path="validate_username", methods=['get', ], permission_classes=[permissions.AllowAny])
+    @action(detail=False, url_path="validate-username", methods=['get', ], permission_classes=[permissions.AllowAny])
     def validate_username(self, request):
         username = request.query_params.get('username')
         current_id = request.query_params.get('current_id')

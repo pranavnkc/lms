@@ -7,7 +7,7 @@ export default {
     },
     {
       name: 'Users',
-      url: '/dashboard',
+      url: '/users',
       icon: 'fa fa-tachometer'
     },
     {

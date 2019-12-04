@@ -12,37 +12,37 @@ import {USER_ME, me} from '../actions';
 const localStorageService = LocalStorageService.getService();
 const authService = AuthService.getService();
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.props.me();
-  }
-  render() {
-    const { userData } = this.props;
-    return (
-      <div>
-        <ReduxToastr />
-        <BrowserRouter>
-          <Switch>
-            {
-              userData && userData.user && userData.user.id ? <Route path="/" name="Home" component={Home} /> : <Route path="/" name="Login Page" component={Login} />
-            }
-          </Switch>
-        </BrowserRouter>
-      </div>
-    );
-  }
+    constructor(props){
+        super(props);
+        this.props.me();
+    }
+    render() {
+        const { userData } = this.props;
+        return (
+            <div>
+                <ReduxToastr />
+                <BrowserRouter>
+                    <Switch>
+                        {
+                            userData && userData.user && userData.user.id ? <Route path="/" name="Home" component={Home} /> : <Route path="/" name="Login Page" component={Login} />
+                        }
+                    </Switch>
+                </BrowserRouter>
+            </div>
+        );
+    }
 }
 
 function mapStateToProps(state) {
-  return {
-    userData:state.userData
-  };
+    return {
+        userData:state.userData
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    me
-  }, dispatch);
+    return bindActionCreators({
+        me
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

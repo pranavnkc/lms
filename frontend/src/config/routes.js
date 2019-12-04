@@ -21,12 +21,29 @@ const Page2 = Loadable({
   loader: () => import('../containers/views/Page2'),
   loading: Loading,
 });
+const UserList = Loadable({
+  loader: () => import('../containers/views/user/List'),
+  loading: Loading,
+});
+
+const EditUser = Loadable({
+  loader: () => import('../containers/views/user/Edit'),
+  loading: Loading,
+});
+
+const CreateUser = Loadable({
+  loader: () => import('../containers/views/user/Edit'),
+  loading: Loading,
+});
 
 const routes = [
-  { path: '/', name: '', component: Home, exact: true },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/page1', name: 'Page1', component: Page1 },
-  { path: '/page2', name: 'Page2', component: Page2 }
+    { path: '/', name: '', component: Home, exact: true },
+    { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+    { path: '/users/create', name: 'Create User', component: CreateUser },
+    { path: '/users/:id', name: 'Edit User', component: EditUser },
+    { path: '/users', name: 'User List', component: UserList },
+    { path: '/page1', name: 'Page1', component: Page1 },
+    { path: '/page2', name: 'Page2', component: Page2 },
 ];
 
 export default routes;

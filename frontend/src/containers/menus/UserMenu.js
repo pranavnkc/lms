@@ -26,14 +26,13 @@ class UserMenu extends Component {
         });
     }
 
-  render() {
-    console.log(this.props);
-    const { userData, logout } = this.props;
+    render() {
+        const { userData, logout } = this.props;
         return (
             <div>
                 <Dropdown nav className="d-md-down-none" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                     <DropdownToggle nav>
-            <span className="text-avatar bg-info"> {userData.user.name[0]}</span>
+                        <span className="text-avatar bg-info"> {userData.user.name[0]}</span>
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu-lg" right>
                         <DropdownItem onClick={this.toggleModel}><i className="fa fa-user"></i>Edit Profile</DropdownItem>

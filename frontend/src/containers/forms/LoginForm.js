@@ -36,7 +36,6 @@ const renderField = ({
 
 let LoginForm = props => {
   const { handleSubmit, submitting } = props;
-  console.log("handleSubmit",  handleSubmit);
   return (
       <form onSubmit={handleSubmit}>
       <h1>Login</h1>
