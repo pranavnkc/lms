@@ -8,12 +8,19 @@ class EditUser extends Component {
     user = null;
     constructor(props){
         super(props);
-        this.userID = this.props.match.params.id;
+        console.log(props);
+        this.userID = this.props.profile?this.props.profile.id :this.props.match.params.id;
         this.state = {
             user: this.userID?{}:null,
             submitting:false,
         }
-        if(this.userID){
+
+    }
+    componentDidMount(){
+        if(this.props.profile){
+            this.setState({user: this.props.profile});
+        }
+        else if(this.userID){
             API.get(`users/${this.userID}/`).then((res)=>{
                 this.setState({user:res.data});
             }, (err)=>{
@@ -23,12 +30,12 @@ class EditUser extends Component {
             })
         }
     }
-
     shouldComponentUpdate(nextProps, nextState){
         return this.state!==nextState;
     }
 
     createOrUpdate(data){
+        console.log(data)
         this.setState(
             {
                 ...this.state,
@@ -37,16 +44,25 @@ class EditUser extends Component {
         )
         let api = this.userID?API.patch(`users/${this.state.user.id}/`, data):API.post(`users/`, data)
         api.then((res)=>{
-            this.props.history.push(`/users`);
+            if(!this.props.profile){
+                this.props.history.push(`/users`);
+            }
         });
     }
 
     render(){
         if((this.state.user && this.state.user.id) || !this.state.user)
             return(
-                <UserCreateForm initialValues={this.state.user} onSubmit={(e)=>this.createOrUpdate(e)} submitting={this.state.submitting}/>
+                <UserCreateForm initialValues={this.state.user} onSubmit={(e)=>this.createOrUpdate(e)} submitting={this.state.submitting} groupOptions={this.props.config.groups} hideRoleField={this.props.profile}/>
             )
         return "";
     }
 }
-export default (connect(null, null)(EditUser));
+
+function mapStateToProps(state) {
+    return {
+       config:state.config
+    };
+}
+
+export default (connect(mapStateToProps, null)(EditUser));

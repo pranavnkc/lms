@@ -28,8 +28,12 @@ class Home extends Component {
   componentWillMount() {
     this.props.someAction();
   }
+    shouldComponentUpdate(nextProps, nextState){
+        return this.state!==nextState || this.props!==nextProps;
+    }
 
-  render() {
+    render() {
+        console.log(routes);
     return (
       <div className="app">
         <AppHeader fixed>

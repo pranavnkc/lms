@@ -7,7 +7,9 @@ import LoginForm from './forms/LoginForm';
 import { login } from '../actions/index';
 
 class Login extends Component {
-
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps!=this.props;
+    }
   render() {
     const { login } = this.props;
     return (
@@ -47,9 +49,8 @@ function mapDispatchToProps(dispatch) {
 
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
-    error: state.user? state.user.error:null
+    error: state.userData? state.userData.error:null
   };
 }
 

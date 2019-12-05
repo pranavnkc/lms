@@ -8,13 +8,14 @@ import Login from './Login';
 import  LocalStorageService from '../utils/LocalStorageService';
 import AuthService from '../services/authService.js';
 import API from "../utils/API";
-import {USER_ME, me} from '../actions';
+import {me, fetchConfig} from '../actions';
 const localStorageService = LocalStorageService.getService();
 const authService = AuthService.getService();
 class App extends Component {
     constructor(props){
         super(props);
         this.props.me();
+        this.props.fetchConfig();
     }
     render() {
         const { userData } = this.props;
@@ -41,7 +42,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        me
+        me,
+        fetchConfig,
     }, dispatch);
 }
 

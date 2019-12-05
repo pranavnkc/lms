@@ -4,6 +4,7 @@ import LocalStorageService from "../utils/LocalStorageService.js";
 export const USER_LOGGED_IN = "USER_LOGGED_IN";
 export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
 export const USER_ME = "USER_ME";
+export const CONFIG_FETCHED = "CONFIG_FETCHED";
 const localStorageService = LocalStorageService.getService();
 
 export const someAction = (props) => {
@@ -50,7 +51,24 @@ export const me = (props) => {
                 payload: response.data
             });
         }), (err)=>{
-            console.log(err);
+            if(err.response.status==401){
+                dispatch({
+                    type: USER_LOGGED_OUT,
+                    payload: null
+                });
+            }
+        };
+    };
+}
+
+export const fetchConfig = (props) => {
+    return (dispatch, getState) => {
+        API.get('config/').then((response)=>{
+            dispatch({
+                type: CONFIG_FETCHED,
+                payload: response.data
+            });
+        }), (err)=>{
             if(err.response.status==401){
                 dispatch({
                     type: USER_LOGGED_OUT,

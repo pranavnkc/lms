@@ -15,11 +15,17 @@ class UserList extends Component {
             userTable:[]
         }
     }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return this.state!==nextState || this.props!==nextProps;
+    }
+
     getUsers(){
         API.get('users/').then((res)=>{
             this.setState({ users: res.data.results, userTable:this.getTableData(res.data.results) });
         });
     }
+
     edit(user){
         this.props.history.push(`/users/${user.id}/`);
     }
@@ -35,7 +41,8 @@ class UserList extends Component {
                 <td>{user.first_name}</td>
                 <td>{user.last_name}</td>
                 <td>{user.username}</td>
-                <td><Button onClick={() =>this.edit(user)}>Edit</Button></td>
+                <td>{user.groups.map(g=>g.name.toUpperCase()).join(",")}</td>
+                <td><i className="fa fa-pencil-square-o fa-2x cursor" onClick={() =>this.edit(user)}></i></td>
             </tr>)
         }
         return table;
@@ -53,6 +60,7 @@ class UserList extends Component {
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Username</th>
+                        <th>Role</th>
                         <th>Action</th>
                     </tr>
                 </thead>

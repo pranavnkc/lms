@@ -26,9 +26,17 @@ export const renderSelectField = ({
     label,
     type,
     icon,
+    options,
     meta: { touched, error, warning }
 }) => {
-    console.log(input, label, type, icon)
+    let getOptions = ()=>{
+        let optionFields = [];
+        for(let option of options){
+            console.log(option);
+            optionFields.push(<option key={option.name+option.id} value={option.name}>{option.name.toUpperCase()}</option>);
+        }
+        return optionFields;
+    }
     return (
         <FormGroup className="mb-3">
             <InputGroup>
@@ -37,12 +45,8 @@ export const renderSelectField = ({
                         <i className={icon}></i>
                     </InputGroupText>
                 </InputGroupAddon>
-                <Input type={type} placeholder={label}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <Input {...input} type={type} placeholder={label}>
+                    {getOptions()}
                 </Input>
                 <br />
             </InputGroup>

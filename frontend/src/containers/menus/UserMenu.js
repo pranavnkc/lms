@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { logout } from '../../actions/index';
+import EditUser from '../views/user/Edit.js';
 class UserMenu extends Component {
     constructor(props) {
         super(props);
@@ -44,12 +45,8 @@ class UserMenu extends Component {
                     <Modal isOpen={this.state.modal} toggle={this.toggleModel} className={this.props.className}>
                         <ModalHeader toggle={this.toggleModel}>Update Profile</ModalHeader>
                         <ModalBody>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <EditUser profile={this.props.userData.user}/>
                         </ModalBody>
-                        <ModalFooter>
-                            <Button color="primary" onClick={this.toggleModel}>Do Something</Button>{' '}
-                            <Button color="secondary" onClick={this.toggleModel}>Cancel</Button>
-                        </ModalFooter>
                     </Modal>
                 </div>
             </div>
