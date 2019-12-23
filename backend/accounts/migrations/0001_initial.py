@@ -6,10 +6,10 @@ from django.db import migrations
 class Migration(migrations.Migration):
     def create_default_group(apps, schema_editor):
         GroupModel = apps.get_model('auth', 'group')
-        GroupModel(name='admin').save()
-        GroupModel(name='production').save()
-        GroupModel(name='user').save()
-        GroupModel(name='viewer').save()
+        GroupModel(name='lms-admin').save()
+        GroupModel(name='lms-production').save()
+        GroupModel(name='lms-user').save()
+        GroupModel(name='lms-viewer').save()
     
     dependencies = [
         ('auth', '__latest__'),

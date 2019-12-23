@@ -136,21 +136,35 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 import ldap
-from django_auth_ldap.config import LDAPSearch
+from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
 
-AUTH_LDAP_SERVER_URI = "ldap://ldap.forumsys.com"
-AUTH_LDAP_BIND_DN = "cn=read-only-admin,dc=example,dc=com"
-AUTH_LDAP_BIND_PASSWORD = "password"
-AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=example,dc=com",
-                                   ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
+AUTH_LDAP_SERVER_URI = "ldap://52.190.26.140"
+AUTH_LDAP_BIND_DN = "cn=dan,cn=users,dc=forest,dc=reinermschmidtgmail,dc=onmicrosoft,dc=com"
+AUTH_LDAP_BIND_PASSWORD = "tBCGhi4EpN9OMk"
+AUTH_LDAP_USER_DN_TEMPLATE = 'cn=%(user)s,cn=users,dc=forest,dc=reinermschmidtgmail,dc=onmicrosoft,dc=com'
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     'auth.backends.CustomLDAPBackend'
 ]
+
 AUTH_LDAP_USER_ATTR_MAP = {
     'first_name': 'givenName',
-    'last_name': 'sn',
-    'email': 'mail',
-    'password':'userPassword'
+    'last_name': 'sAMAccountName'
 }
-AUTH_LDAP_MIRROR_CREDENTIALS = True
+
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch("cn=users,dc=forest,dc=reinermschmidtgmail,dc=onmicrosoft,dc=com",
+                                    ldap.SCOPE_SUBTREE, "(objectClass=top)"
+)
+AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr="cn")
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+    "is_staff": "CN=lms-admin,CN=Users,DC=forest,DC=reinermschmidtgmail,DC=onmicrosoft,DC=com",
+    "is_superuser": "CN=lms-admin,CN=Users,DC=forest,DC=reinermschmidtgmail,DC=onmicrosoft,DC=com"
+}
+
+
+MID_WAY_SERVER_URL = "http://0.0.0.0:5002/"
+AUTH_LDAP_MIRROR_GROUPS = True
+AUTH_LDAP_MIRROR_GROUPS = [
+    "lms-admin", "lms-production","lms-viewer", "lms-user",    
+]
+MIRROR_CREDENTIALS = True

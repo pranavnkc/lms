@@ -29,6 +29,11 @@ class UserList extends Component {
     edit(user){
         this.props.history.push(`/users/${user.id}/`);
     }
+  delete(userID){
+    API.delete(`users/${userID}`).then((res)=>{
+      this.getUsers();
+    });
+  }
     create(){
         console.log(this);
         this.props.history.push(`/users/create/`);
@@ -37,12 +42,13 @@ class UserList extends Component {
         let table = [];
         for(let user of users){
             table.push(<tr key={user.id}>
-                <th scope="row">{user.id}</th>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{user.username}</td>
+                       <th scope="row">{user.id}</th>
+                       <td>{user.first_name}</td>
+                       <td>{user.last_name}</td>
+                       <td>{user.username}</td>
+                       <td>{user.email}</td>
                 <td>{user.groups.map(g=>g.name.toUpperCase()).join(",")}</td>
-                <td><i className="fa fa-pencil-square-o fa-2x cursor" onClick={() =>this.edit(user)}></i></td>
+                       <td><i className="fa fa-pencil-square-o fa-2x cursor pr-2" onClick={() =>this.edit(user)}></i><i className="fa fa-trash fa-2x cursor" onClick={() =>this.delete(user.id)}></i></td>
             </tr>)
         }
         return table;
@@ -59,7 +65,8 @@ class UserList extends Component {
                         <th>#</th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>Username</th>
+            <th>Username</th>
+            <th>Email</th>
                         <th>Role</th>
                         <th>Action</th>
                     </tr>

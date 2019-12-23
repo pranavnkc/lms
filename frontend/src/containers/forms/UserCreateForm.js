@@ -11,6 +11,12 @@ const validate = values => {
     if (!values.last_name) {
         errors.last_name = "Please enter the Last Name";
     }
+  if (!values.email) {
+    errors.email = "Please enter Email";
+  }
+  else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
+    errors.email = "Invalid Email Address";
+  }
     if (!values.username) {
         errors.username = "Please enter the Username";
     }
@@ -45,6 +51,7 @@ let UserCreateForm = props => {
         <Field component={renderInputField} icon="fa fa-user" type="text" label="First Name" name="first_name"/>
         <Field component={renderInputField} icon="fa fa-user" type="text" label="Last Name" name="last_name"/>
         <Field component={renderInputField} icon="fa fa-user" type="text" label="Username" name="username"/>
+        <Field component={renderInputField} icon="fa fa-user" type="text" label="Email" name="email"/>
         {props.hideRoleField?<p></p>:<Field component={renderSelectField} icon="fa fa-users" type="select" label="Role" name="role" options={groupOptions}/>}
         {props.initialValues && props.initialValues.id?<p></p>:
          <span>
@@ -66,5 +73,4 @@ export default reduxForm({
     validate,
     asyncValidate:usernameValidator,
     asyncBlurFields: ['username']
-
 })(UserCreateForm);
