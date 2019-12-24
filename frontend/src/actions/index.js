@@ -45,19 +45,21 @@ export const logout = (props) => {
 
 export const me = (props) => {
     return (dispatch, getState) => {
+        console.log("asdasd");
         API.get('users/me/').then((response)=>{
             dispatch({
                 type: USER_ME,
                 payload: response.data
             });
-        }), (err)=>{
+        }, (err)=>{
+            console.log(err.response);
             if(err.response.status==401){
                 dispatch({
                     type: USER_LOGGED_OUT,
                     payload: null
                 });
             }
-        };
+        });
     };
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, Col, Row } from 'reactstrap';
+import { change } from 'redux-form';
 import API from "../../utils/API";
 import ProductionForm from "../forms/ProductionForm";
 
@@ -33,6 +34,9 @@ class Production extends Component {
             this.setState({connecting:false, deviceStatus:this.state.deviceStatus=='Connected'?"Disconnected":"Connected"});
             setTimeout(() => API.get("mid-way-server/deviceInfo/").then((res)=>{
                 this.setState({deviceInfo:res.data.data});
+                this.props.changeFieldValue('deviceType', res.data.data.deviceType);
+                this.props.changeFieldValue('deviceMac', res.data.data.deviceMac);
+                this.props.changeFieldValue('deviceSerial', res.data.data.deviceSerial);
             }), 1000);
         });
     }
@@ -61,5 +65,11 @@ function mapStateToProps(state) {
        user:state.user
     };
 }
-
-export default (connect(mapStateToProps, null)(Production));
+const mapDispatchToProps = (dispatch) => {
+        return {
+            changeFieldValue: function(field, value) {
+                dispatch(change('productionForm', field, value))
+            }
+        }
+}
+export default (connect(mapStateToProps, mapDispatchToProps)(Production));

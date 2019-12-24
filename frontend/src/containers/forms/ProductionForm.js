@@ -34,15 +34,6 @@ const renderField = ({
 
 let ProductionForm = props => {
     const { handleSubmit, submitting } = props;
-    if(props.deviceInfo && props.deviceInfo.deviceType){
-        props.change('deviceType', props.deviceInfo.deviceType);
-    }
-    if(props.deviceInfo && props.deviceInfo.deviceMac){
-        props.change('deviceMac', props.deviceInfo.deviceMac);
-    }
-    if(props.deviceInfo && props.deviceInfo.deviceSerial){
-        props.change('deviceSerial', props.deviceInfo.deviceSerial);
-    }
     return (
       <form onSubmit={handleSubmit}>
           <h1>Production</h1>
